@@ -15,6 +15,10 @@ namespace StaffCoreRD.Data
         {
             base.OnModelCreating(mb);
 
+            mb.Entity<Staff>()
+                .Property(s => s.Salario)
+                .HasPrecision(10, 2);
+
             mb.Entity<Staff>().HasData(
                 new Staff
                 {

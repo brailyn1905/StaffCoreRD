@@ -17,13 +17,23 @@ namespace StaffCoreRD.Controllers
         }
 
         // ---------- INDEX ----------
-        // GET: /Staff
-        public async Task<IActionResult> Index()
+        // GET: /Staff?buscar=texto
+        public async Task<IActionResult> Index(string? buscar)
         {
-            var personal = await _context.Personal
+            var query = _context.Personal
                 .Where(s => s.Activo)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(buscar))
+            {
+                query = query.Where(s => s.Nombre.Contains(buscar));
+            }
+
+            var personal = await query
                 .OrderBy(s => s.Nombre)
                 .ToListAsync();
+
+            ViewData["Buscar"] = buscar;
 
             return View(personal);
         }

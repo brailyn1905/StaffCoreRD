@@ -44,7 +44,7 @@ namespace StaffCoreRD.Controllers
                 await _signInManager.SignInAsync(user, isPersistent: false);
 
                 TempData["Exito"] = "Cuenta creada exitosamente.";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Staff");
             }
 
             foreach (var error in result.Errors)
@@ -77,7 +77,7 @@ namespace StaffCoreRD.Controllers
             if (result.Succeeded)
             {
                 TempData["Exito"] = "Bienvenido de nuevo.";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Staff");
             }
 
             if (result.IsLockedOut)
